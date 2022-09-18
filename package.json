@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShobhitVishnoi30/ERC20.git"
+    "url": "git+https://github.com/ShobhitVishnoi30/ERC721.git"
   },
   "keywords": [
     "ERC20",
@@ -24,9 +24,9 @@
   "author": "Shobhit Vishnoi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ShobhitVishnoi30/ERC20/issues"
+    "url": "https://github.com/ShobhitVishnoi30/ERC721/issues"
   },
-  "homepage": "https://github.com/ShobhitVishnoi30/ERC20#readme",
+  "homepage": "https://github.com/ShobhitVishnoi30/ERC721#readme",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^1.0.2",
     "@openzeppelin/contracts": "^4.7.3",
