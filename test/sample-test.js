@@ -57,6 +57,40 @@ async function Testing() {
       );
       expect(await testERC721.balanceOf(user2.address)).to.equal("1");
     });
+
+    it("user can not transfer NFT if user is not the owner of that NFT", async function () {
+      expect(await testERC721.ownerOf("0")).to.equal(user2.address);
+
+      await expect(
+        testERC721.connect(user1).transferFrom(user2.address, user1.address, 0)
+      ).to.be.revertedWith("ERC721: caller is not token owner nor approved");
+    });
+
+    it("only NFT owner can approve other user ", async function () {
+      await expect(
+        testERC721.connect(user1).approve(user1.address, 0)
+      ).to.be.revertedWith(
+        "ERC721: approve caller is not token owner nor approved for all"
+      );
+    });
+
+    it("user should be able to approve other user to transfer NFT", async function () {
+      await testERC721.connect(user2).approve(user1.address, 0);
+      expect(await testERC721.getApproved("0")).to.equal(user1.address);
+    });
+
+    it("user should be able to transfer NFT on the behalf of the token owner who has approved user", async function () {
+      expect(await testERC721.ownerOf("0")).to.equal(user2.address);
+
+      expect(await testERC721.balanceOf(user2.address)).to.equal("1");
+      await testERC721
+        .connect(user1)
+        .transferFrom(user2.address, user3.address, 0);
+
+      expect(await testERC721.balanceOf(user2.address)).to.equal("0");
+
+      expect(await testERC721.ownerOf("0")).to.equal(user3.address);
+    });
   });
 }
 
