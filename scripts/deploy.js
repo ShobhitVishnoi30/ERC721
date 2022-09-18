@@ -19,7 +19,7 @@ async function main() {
 
   await testERC721.deployed();
 
-  console.log("Test ERC20 deployed to:", testERC721.address);
+  console.log("Test ERC721 deployed to:", testERC721.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
