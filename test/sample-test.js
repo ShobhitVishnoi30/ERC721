@@ -91,6 +91,25 @@ async function Testing() {
 
       expect(await testERC721.ownerOf("0")).to.equal(user3.address);
     });
+
+    it("only NFT owner/approved user should be able to burn NFT", async function () {
+      expect(await testERC721.ownerOf("0")).to.equal(user3.address);
+
+      await expect(testERC721.connect(user2).burn("0")).to.be.revertedWith(
+        "ERC721: caller is not token owner nor approved"
+      );
+    });
+
+    it("user should be able to burn NFT", async function () {
+      expect(await testERC721.ownerOf("0")).to.equal(user3.address);
+      expect(await testERC721.balanceOf(user3.address)).to.equal("1");
+      expect(await testERC721.totalSupply()).to.equal("1");
+      await testERC721.connect(user3).burn("0");
+
+      expect(await testERC721.balanceOf(user3.address)).to.equal("0");
+
+      expect(await testERC721.totalSupply()).to.equal("0");
+    });
   });
 }
 
